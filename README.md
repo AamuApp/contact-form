@@ -13,4 +13,6 @@ A sample contact form to conntect into your Aamu.app database.
     
 3. Then, go to your repository, which Netlify created, and edit `index.html` and change the form endpoint (action). You will find this endpoint in your database settings (that you did earlier).
 
+## What does it look like?
+
 ![image](https://user-images.githubusercontent.com/433707/137251578-2d14787a-986b-4023-90aa-eaff34966c0b.png)
