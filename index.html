@@ -14,7 +14,7 @@
 			margin: 50px auto;
 			padding: 70px 50px;
 			box-shadow: 0 0 25px rgba(0,0,0,0.1);
-			border-radius: 5px;
+			border-radius: 8px;
 		}
 
 		#success {
@@ -52,6 +52,7 @@
 			width: 100%;
 			padding: 10px;
 			border: solid 1px #ccc;
+			border-radius: 4px;
 			box-sizing: border-box;
 			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 			font-size: 1em;
@@ -103,17 +104,31 @@
 		label {
 			display: block;
 		}
+
+		.error  {
+			border: solid 1px rgb(240, 183, 183);
+			border-radius: 8px;
+			margin: 10px auto;
+			padding: 1em 2em;
+			color: #e66;
+			background: #fff7f7;
+			font-weight: bold;
+		}
 	</style>
 </head>
 <body>
 </div>
 	<div class="wrap">
 		<h1>Get in touch</h1>
+		<p>This is an example app which uses Aamu.app's database.</p>
+		<p>You should have the database created, and then go to the database settings - in there you should enable forms, get the Forms Endpoint and enter it into <em>&lt;form action=""&gt;</em> in this html file.</p>
+		<div id="errors"></div>
 		<div id="error" class="status"></div>
 		<div id="success" class="status">Sent!</div>
-		<form id="ajaxForm" action="http://127.0.0.1/" method="POST" enctype="multipart/form-data" >
+
+		<form id="contactForm" action="http://127.0.0.1/" method="POST" enctype="multipart/form-data" >
 			<div>
-				<input placeholder="Name" type="text" name="name" id="form_name" required>
+				<input placeholder="Name" type="text" name="name" id="form_name" required autofocus>
 			</div>
 			<div>
 				<input placeholder="Email" type="text" name="email" id="form_email" required>
@@ -128,8 +143,15 @@
 	<!--  Remove this if you don't want AJAX -->
 	<script type="text/javascript">
 	
+		function setError(error) {
+			const div = document.createElement('div');
+			div.className = 'error';
+			div.innerHTML = error.toString();
+			document.getElementById('errors').appendChild(div);
+		}
+
 		function addTimezoneInfo() {
-			const form = document.getElementById('ajaxForm');
+			const form = document.getElementById('contactForm');
 	
 			if (form) {
 				var els = form.querySelectorAll('input[type=datetime-local]');
@@ -157,7 +179,7 @@
 			submitEl.disabled = true;
 			
 			fetch(this.action, {
-				body: body,
+				body,
 				method: "post"
 			}).then((response) => {
 				return response.json();
@@ -174,13 +196,13 @@
 	
 		addTimezoneInfo();
 
-		const ajaxForm = document.getElementById('ajaxForm');
+		const contactForm = document.getElementById('contactForm');
 		
-		if (ajaxForm.action == 'http://127.0.0.1/') {
-			alert('Please, change the form endpoint (action).')
+		if (contactForm.action == 'http://127.0.0.1/') {
+			setError('Please, change the form endpoint (action).')
 		}
 		else {
-			ajaxForm.addEventListener('submit', submit);
+			contactForm.addEventListener('submit', submit);
 		}
 	</script>
 	
