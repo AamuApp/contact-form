@@ -126,7 +126,10 @@
 		<div id="error" class="status"></div>
 		<div id="success" class="status">Sent!</div>
 
-		<form id="contactForm" action="http://127.0.0.1/" method="POST" enctype="multipart/form-data" >
+		<form id="contactForm" action="" method="POST" enctype="multipart/form-data" >
+			<input type="hidden" name="redirect-error" value="https://api.aamu.app/api/v1/forms/error">
+			<input type="hidden" name="redirect-success" value="https://api.aamu.app/api/v1/forms/thank-you">
+
 			<div>
 				<input placeholder="Name" type="text" name="name" id="form_name" required autofocus>
 			</div>
@@ -173,6 +176,8 @@
 		function submit(e) {
 			e.preventDefault();
 			const body = new FormData(this);
+			body.delete('redirect-error');
+			body.delete('redirect-success');			
 			const submitEl = document.getElementById('submit')
 			const errorEl = document.getElementById('error')
 			const successEl = document.getElementById('success')
@@ -202,7 +207,7 @@
 			setError('Please, change the form endpoint (action).')
 		}
 		else {
-			contactForm.addEventListener('submit', submit);
+			// contactForm.addEventListener('submit', submit);
 		}
 	</script>
 	
